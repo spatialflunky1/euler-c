@@ -1,6 +1,6 @@
 /*
 
-    THIS CODE SUCKS DICK AND BALLS
+    THIS CODE SUCKS
     It's super inefficient
     The code keeps going past the 10001st prime
     But to use Sieve of Eratosthenes (like the most efficient algorithm) it needs to be this way
@@ -37,9 +37,11 @@ void sieve(int num) {
         if (arr[i]) current++;
         if (current == 10001 && arr[i]) {
             printf("ANSWER %d\n", i+2);
+            free(arr);
             exit(0);
         }
-    } 
+    }
+    free(arr);
 }
 
 int main(void) {

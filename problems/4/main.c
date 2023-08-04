@@ -78,5 +78,6 @@ int main(void) {
         }
     }
     printf("%d\n", maxArr(arr, len));
+    free(arr);
     return 0;
 }
