@@ -1,20 +1,21 @@
 #include <stdio.h>
+#include <math.h>
 
-int main(void) {
+int main(int argc, char** argv) {
     int num = 0;
     int i = 1;
-    int j = 1;
+    int j;
     int factors = 0;
     while (1) {
         num += i;
         factors = 0;
-        for (j = 1; j <= num; j++) {
-            if (num % j == 0) 
-                factors++;
+        for (j = 1; j < sqrt(num); j++) {
+            if (num % j == 0) {
+                factors += 2;
+            }
         }
-        if (factors > 100) printf("%d: %d\n", num, factors);
         if (factors > 500) {
-            printf("%d\n", num);
+            printf("%d: %d\n", num, factors);
             break;
         }
         i++;
