@@ -30,27 +30,11 @@ const char* grid_str = ""
 
 int** parseGrid() {
     int** grid = malloc(ROWS * sizeof(int*));
-    int rowNum = 0;
-    int colNum = 0;
-    int curNum = 0;
-    for (int i = 0; i < strlen(grid_str); i++) {
-        if (grid_str[i] == '\n') {
-            if (row != NULL) {
-                grid[rowNum] = row;
-                rowNum++;
-            }
-            row = malloc(COLS * sizeof(int));
-        }
-        if (isdigit(grid_str[i])) {
-            curNum = (curNum * 10) + ((int)grid_str[i] - 48);
-        }
-        if (grid_str[i] == ' ') {
-            row[colNum] = curNum;
-            curNum = 0;
-            colNum++;
-            if (colNum >= 20) colNum = 0;
-        }
+    for (int i = 0; i < ROWS; i++) {
+        grid[i] = malloc(COLS * sizeof(int));
     }
+
+
 
     return grid;
 }
