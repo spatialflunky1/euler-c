@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <inttypes.h>
 
 #define ROWS 20
 #define COLS 20
@@ -57,26 +58,53 @@ int** parseGrid() {
     return grid;
 }
 
-void print2DArr(int** arr) {
-    for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
-            if (arr[i][j] >= 10) printf("%d ", arr[i][j]);
-            else printf("0%d ", arr[i][j]);
-        }
-        putchar('\n');
-    } 
-}
-
 int main(void) {
     int** grid = parseGrid();
-    int max = 0;
-    // TODO: test for max in horiz, vert, and diag
+    uint64_t max = 0;
+    uint64_t cur;
 
-    print2DArr(grid);
+    // Horizontal
+    for (int i = 0; i < ROWS; i++) {
+        cur = 0;
+        for (int j = 0; j < COLS - 4; j++) {
+            cur = grid[i][j] * grid[i][j + 1] * grid[i][j + 2] * grid[i][j + 3];
+            if (cur > max) max = cur;
+        }
+    }
+ 
+    // Vertical
+    for (int i = 0; i < COLS; i++) {
+        cur = 0;
+        for (int j = 0; j < ROWS - 4; j++) {
+            cur = grid[j][i] * grid[j + 1][i] * grid[j + 2][i] * grid[j+ 3][i];
+            if (cur > max) max = cur;
+        }
+    }
+
+    // Right Diagonal
+    for (int i = 0; i < ROWS - 4; i++) {
+        cur = 0;
+        for (int j = 0; j < COLS - 4; j++) {
+            cur = grid[i][j] * grid[i + 1][j + 1] * grid[i + 2][j + 2] * grid[i + 3][j + 3];
+            if (cur > max) max = cur;
+        }
+    }
+
+    // Left Diagonal
+    for (int i = 3; i < ROWS; i++) {
+        cur = 0;
+        for (int j = 0; j < COLS - 4; j++) {
+            cur = grid[i][j] * grid[i - 1][j + 1] * grid[i - 2][j + 2] * grid[i - 3][j + 3];
+            if (cur > max) max = cur;
+        }
+    }
+
+    printf("%d\n", max);
 
     for (int i = 0; i < ROWS; i++) {
         free(grid[i]);
     }
     free(grid);
+
     return 0;
 }
