@@ -34,13 +34,45 @@ int** parseGrid() {
         grid[i] = malloc(COLS * sizeof(int));
     }
 
-
+    int num = 0;
+    int row = 0;
+    int col = 0;
+    for (int i = 0; i < strlen(grid_str); i++) {
+        if (isdigit(grid_str[i])) {
+            num = (num * 10) + ((int)grid_str[i] - 48);
+        }
+        else if (grid_str[i] == ' ') {
+            grid[row][col] = num;
+            num = 0;
+            col++;
+        }
+        else if (grid_str[i] == '\n') {
+            grid[row][col] = num;
+            num = 0;
+            col = 0;
+            row++;
+        }
+    }
 
     return grid;
 }
 
+void print2DArr(int** arr) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            if (arr[i][j] >= 10) printf("%d ", arr[i][j]);
+            else printf("0%d ", arr[i][j]);
+        }
+        putchar('\n');
+    } 
+}
+
 int main(void) {
     int** grid = parseGrid();
+    int max = 0;
+    // TODO: test for max in horiz, vert, and diag
+
+    print2DArr(grid);
 
     for (int i = 0; i < ROWS; i++) {
         free(grid[i]);
