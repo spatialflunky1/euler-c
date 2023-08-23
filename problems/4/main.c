@@ -50,9 +50,8 @@ void intAppend(int val, int** arr, int* len) {
     for (int i = 0; i < (*len); i++) {
         temp[i] = (*arr)[i];
     }
-    temp[(*len)] = val;
+    temp[(*len)++] = val;
     free((*arr));
-    (*len)++;
     (*arr) = temp;
 }
 
